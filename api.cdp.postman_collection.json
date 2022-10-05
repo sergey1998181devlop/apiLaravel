@@ -1,0 +1,255 @@
+{
+	"info": {
+		"_postman_id": "d18e4b78-efa0-4604-a858-75cf5e930255",
+		"name": "api.cdp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17875005"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://api.cdp.ru/api/register?name=admin&password=MaxLop2015!&phone=79853429536",
+							"protocol": "http",
+							"host": [
+								"api",
+								"cdp",
+								"ru"
+							],
+							"path": [
+								"api",
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "MaxLop2015!"
+								},
+								{
+									"key": "phone",
+									"value": "79853429536"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth:sanctum",
+			"item": [
+				{
+					"name": "Lk",
+					"item": [
+						{
+							"name": "UserCRUD",
+							"item": [
+								{
+									"name": "UserInfo",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "6|7Rd9jnc705LNtLEngcvQAVJpcpG74j8cwD8BZndn",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/api/lk/user",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"lk",
+												"user"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UpdateUser",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "6|7Rd9jnc705LNtLEngcvQAVJpcpG74j8cwD8BZndn",
+													"type": "string"
+												}
+											]
+										},
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/api/lk/user/update?name=Maxim&surname=Lopens&email=sobaka@sobaka.ru",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"lk",
+												"user",
+												"update"
+											],
+											"query": [
+												{
+													"key": "name",
+													"value": "Maxim"
+												},
+												{
+													"key": "surname",
+													"value": "Lopens"
+												},
+												{
+													"key": "email",
+													"value": "sobaka@sobaka.ru"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Bonuses",
+							"item": [
+								{
+									"name": "History",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "6|7Rd9jnc705LNtLEngcvQAVJpcpG74j8cwD8BZndn",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/api/lk/bonuses/history",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"lk",
+												"bonuses",
+												"history"
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "Checks",
+							"item": [
+								{
+									"name": "ShowCheckes",
+									"request": {
+										"auth": {
+											"type": "bearer",
+											"bearer": [
+												{
+													"key": "token",
+													"value": "6|7Rd9jnc705LNtLEngcvQAVJpcpG74j8cwD8BZndn",
+													"type": "string"
+												}
+											]
+										},
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/api/lk/checkes/show",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"lk",
+												"checkes",
+												"show"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "UploadCheck",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8000/api/lk/checkes/upload?bonus_id=1",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8000",
+											"path": [
+												"api",
+												"lk",
+												"checkes",
+												"upload"
+											],
+											"query": [
+												{
+													"key": "bonus_id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

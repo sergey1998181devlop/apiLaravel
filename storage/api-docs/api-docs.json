@@ -1,0 +1,3427 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "OpenApi Documentation",
+        "description": "Документация для CDP сервиса",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8000",
+            "description": "Основной API"
+        }
+    ],
+    "paths": {
+        "/api/dashboard/login": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Авторизация админа",
+                "operationId": "loginAdmin",
+                "parameters": [
+                    {
+                        "name": "login",
+                        "in": "path",
+                        "description": "Логин администратора",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "test"
+                    },
+                    {
+                        "name": "password",
+                        "in": "path",
+                        "description": "Пароль администратора",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            },
+                                            "bearerToken": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin/checks/get": {
+            "get": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Получение чеков для модерации",
+                "description": "Защищено bearer-токеном",
+                "operationId": "getChecks",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": "22"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "test"
+                                                    },
+                                                    "surname": {
+                                                        "type": "string",
+                                                        "example": "test"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "test@test.com"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "9991231234"
+                                                    },
+                                                    "mall_id": {
+                                                        "type": "integer",
+                                                        "example": "32"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "pending"
+                                                    },
+                                                    "file_link": {
+                                                        "type": "string",
+                                                        "example": "https://test.com/img.png"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/checks/getFiltered": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Получение чеков для модерации по статусу",
+                "description": "Защищено bearer-токеном",
+                "operationId": "getFilteredChecks",
+                "parameters": [
+                    {
+                        "name": "status",
+                        "in": "path",
+                        "description": "Статус чека",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "test"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": "22"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "test"
+                                                    },
+                                                    "surname": {
+                                                        "type": "string",
+                                                        "example": "test"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "test@test.com"
+                                                    },
+                                                    "phone": {
+                                                        "type": "string",
+                                                        "example": "9991231234"
+                                                    },
+                                                    "mall_id": {
+                                                        "type": "integer",
+                                                        "example": "32"
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "example": "pending"
+                                                    },
+                                                    "file_link": {
+                                                        "type": "string",
+                                                        "example": "https://test.com/img.png"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/checks/confirm": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Подтверждение чека",
+                "description": "Защищено bearer-токеном",
+                "operationId": "confirmCheck",
+                "parameters": [
+                    {
+                        "name": "check_id",
+                        "in": "path",
+                        "description": "Идентификатор чека",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "status",
+                        "in": "path",
+                        "description": "Статус чека",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "confirmed/declined"
+                    },
+                    {
+                        "name": "check_sum",
+                        "in": "path",
+                        "description": "Количество начисляемых бонусов",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "300"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "3"
+                                                },
+                                                "user_id": {
+                                                    "type": "integer",
+                                                    "example": "22"
+                                                },
+                                                "name": {
+                                                    "type": "string",
+                                                    "example": "test"
+                                                },
+                                                "surname": {
+                                                    "type": "string",
+                                                    "example": "test"
+                                                },
+                                                "email": {
+                                                    "type": "string",
+                                                    "example": "test@test.com"
+                                                },
+                                                "phone": {
+                                                    "type": "string",
+                                                    "example": "9991231234"
+                                                },
+                                                "mall_id": {
+                                                    "type": "integer",
+                                                    "example": "32"
+                                                },
+                                                "status": {
+                                                    "type": "string",
+                                                    "example": "pending"
+                                                },
+                                                "file_link": {
+                                                    "type": "string",
+                                                    "example": "https://test.com/img.png"
+                                                },
+                                                "created_at": {
+                                                    "type": "string",
+                                                    "format": "date"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users/getMalls": {
+            "get": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Получение списка ТРЦ",
+                "description": "Защищено bearer-токеном",
+                "operationId": "AdminGetMalls",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "mall_id": {
+                                                    "type": "integer"
+                                                },
+                                                "uri": {
+                                                    "type": "string"
+                                                },
+                                                "created_at": {
+                                                    "type": "timestamp"
+                                                },
+                                                "updated_at": {
+                                                    "type": "timestamp"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users/getByMall": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Получение пользователей по ТРЦ с фильтрами",
+                "description": "Защищено bearer-токеном",
+                "operationId": "AdminUsersByMall",
+                "parameters": [
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "filter",
+                        "in": "path",
+                        "description": "Фильтр для поиска информации",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "new_users/old_users/login_new/login_old/all"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Maxim"
+                                                    },
+                                                    "surname": {
+                                                        "type": "string",
+                                                        "example": "Sukachev"
+                                                    },
+                                                    "phone": {
+                                                        "type": "integer",
+                                                        "example": "89853429512"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "solvintech@mail.ru"
+                                                    },
+                                                    "sex": {
+                                                        "type": "string",
+                                                        "example": "male,female"
+                                                    },
+                                                    "mall_id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users/get": {
+            "get": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Получение cписка пользователей по фильтрам",
+                "description": "Защищено bearer-токеном",
+                "operationId": "moderateUser",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "path",
+                        "description": "Фильтр для поиска информации",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "new_users/old_users/login_new/login_old/all"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "example": "Maxim"
+                                                    },
+                                                    "surname": {
+                                                        "type": "string",
+                                                        "example": "Sukachev"
+                                                    },
+                                                    "phone": {
+                                                        "type": "integer",
+                                                        "example": "89853429512"
+                                                    },
+                                                    "email": {
+                                                        "type": "string",
+                                                        "example": "solvintech@mail.ru"
+                                                    },
+                                                    "sex": {
+                                                        "type": "string",
+                                                        "example": "male,female"
+                                                    },
+                                                    "mall_id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users/addBonuses": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Начисление бонусов администратором",
+                "description": "Защищено bearer-токеном",
+                "operationId": "AdminAddBonusesUser",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "id пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3"
+                    },
+                    {
+                        "name": "bonuses",
+                        "in": "path",
+                        "description": "Количество начисляемых бонусов",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1000"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "user_id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "balance": {
+                                                        "type": "integer",
+                                                        "example": "55"
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "format": "date"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/users/update": {
+            "post": {
+                "tags": [
+                    "admin"
+                ],
+                "summary": "Обновление информации о пользователе",
+                "description": "Защищено bearer-токеном",
+                "operationId": "AdminUpdateUser",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Номер телефона пользователя",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "9853429732"
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Имя пользователя",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Maxim"
+                    },
+                    {
+                        "name": "surname",
+                        "in": "path",
+                        "description": "Фамилия пользователя",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Naberezhniy"
+                    },
+                    {
+                        "name": "sex",
+                        "in": "path",
+                        "description": "Пол пользователя",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "male,female"
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "email пользователя",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "solvintech@mail.ru"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "updated": {
+                                                    "type": "boolean"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "api/register": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Регистрация пользователя",
+                "operationId": "registerUser",
+                "parameters": [
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Номер телефона пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "89853429241"
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Имя пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Вячеслав"
+                    },
+                    {
+                        "name": "surname",
+                        "in": "path",
+                        "description": "Фамилия пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Погольша"
+                    },
+                    {
+                        "name": "sex",
+                        "in": "path",
+                        "description": "Пол пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "male,female"
+                    },
+                    {
+                        "name": "birthdate",
+                        "in": "path",
+                        "description": "День рождения пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "04/05/2002"
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "Email пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "solvintech@mail.ru"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/login": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Авторизация пользователя",
+                "operationId": "loginUser",
+                "parameters": [
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Номер телефона пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "89853429321"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            },
+                                            "bearerToken": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/verify": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Отправка смс-кода для подтверждения телефона",
+                "description": "Отправка смс-кода",
+                "operationId": "registerVerifyPhone",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Номер телефона пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "89853429213"
+                    },
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "id ТРЦ пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/lk/user/show": {
+            "get": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Получение информации о пользователе",
+                "description": "Защищено bearer-токеном",
+                "operationId": "indexUser",
+                "parameters": [
+                    {
+                        "name": "bearer",
+                        "in": "path",
+                        "description": "bearer-токен пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "26|4234fsDSFLENLRKS23"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Maxim"
+                                            },
+                                            "surname": {
+                                                "type": "string",
+                                                "example": "Sukachev"
+                                            },
+                                            "phone": {
+                                                "type": "integer",
+                                                "example": "89853429512"
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "solvintech@mail.ru"
+                                            },
+                                            "sex": {
+                                                "type": "string",
+                                                "example": "male,female"
+                                            },
+                                            "mall_id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/lk/user/update": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Обновление информации о пользователе",
+                "description": "Защищено bearer-токеном",
+                "operationId": "updateUser",
+                "parameters": [
+                    {
+                        "name": "bearer",
+                        "in": "path",
+                        "description": "bearer-токен пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3|FDSLK43lknsfd"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Номер телефона пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "9853429732"
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Имя пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Maxim"
+                    },
+                    {
+                        "name": "surname",
+                        "in": "path",
+                        "description": "Фамилия пользователя",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Naberezhniy"
+                    },
+                    {
+                        "name": "sex",
+                        "in": "path",
+                        "description": "Пол пользователя",
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "male,female"
+                    },
+                    {
+                        "name": "email",
+                        "in": "path",
+                        "description": "email пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "solvintech@mail.ru"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/confirm": {
+            "post": {
+                "tags": [
+                    "auth"
+                ],
+                "summary": "Верификация смс и подтверждения номера телефона",
+                "description": "Отправка смс-кода",
+                "operationId": "confirmRegisterPhone",
+                "parameters": [
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Номер телефона пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "89853429353"
+                    },
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3"
+                    },
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Смс-код",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3231"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/lk/user/verify": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Отправка смс-кода на подтверждение нового номера телефона",
+                "description": "Отправка смс-кода",
+                "operationId": "verifyPhone",
+                "parameters": [
+                    {
+                        "name": "bearer",
+                        "in": "path",
+                        "description": "bearer-токен пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3|423KFDS34dfs3"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Новый телефона пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "8934252324"
+                    },
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/lk/user/confirmPhone": {
+            "post": {
+                "tags": [
+                    "user"
+                ],
+                "summary": "Верификация смс и смена номера телефона",
+                "description": "Отправка смс-кода",
+                "operationId": "confirmPhone",
+                "parameters": [
+                    {
+                        "name": "bearer",
+                        "in": "path",
+                        "description": "bearer-токен пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3|GFD4F45SG"
+                    },
+                    {
+                        "name": "phone",
+                        "in": "path",
+                        "description": "Новый номер телефона пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "9428343212"
+                    },
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3"
+                    },
+                    {
+                        "name": "code",
+                        "in": "path",
+                        "description": "Смс-код",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3214"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/lk/bonuses/history": {
+            "get": {
+                "tags": [
+                    "bonuses"
+                ],
+                "summary": "Получение бонусных транзакций пользователя",
+                "description": "Защищено bearer-токеном",
+                "operationId": "bonusesUserHistory",
+                "parameters": [
+                    {
+                        "name": "bearer",
+                        "in": "path",
+                        "description": "bearer-токен пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3|rePJ34DDFgds"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "bonus_transaction": {
+                                                "type": "string",
+                                                "example": "+30"
+                                            },
+                                            "bonus_date": {
+                                                "type": "string",
+                                                "format": "date",
+                                                "example": "30.05.2001"
+                                            },
+                                            "bonus_id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "bonus_type": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/lk/bonuses/balance": {
+            "get": {
+                "tags": [
+                    "bonuses"
+                ],
+                "summary": "Получение баланса пользователя",
+                "description": "Защищено bearer-токеном",
+                "operationId": "bonusesUserBalance",
+                "parameters": [
+                    {
+                        "name": "bearer",
+                        "in": "path",
+                        "description": "bearer-токен пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3|rePJ34DDFgds"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": "30"
+                                            },
+                                            "balance": {
+                                                "type": "integer",
+                                                "example": "3000"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/lk/checks/show": {
+            "get": {
+                "tags": [
+                    "checks"
+                ],
+                "summary": "Получение списка чеков пользователя",
+                "operationId": "index",
+                "parameters": [
+                    {
+                        "name": "bearer",
+                        "in": "path",
+                        "description": "bearer-токен пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "user_id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "mall_id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "bonus_id": {
+                                                "type": "integer",
+                                                "example": "3"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "format": "date"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "api/lk/checks/upload": {
+            "post": {
+                "tags": [
+                    "checks"
+                ],
+                "summary": "Загрузка чека",
+                "operationId": "upload",
+                "parameters": [
+                    {
+                        "name": "bearer",
+                        "in": "path",
+                        "description": "bearer-токен пользователя",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "3|KFDL34df3wg"
+                    },
+                    {
+                        "name": "file",
+                        "in": "path",
+                        "description": "Фотография чека",
+                        "required": true,
+                        "schema": {
+                            "type": "image"
+                        },
+                        "example": "jpg/jpeg/png"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/api/lk/draw/get": {
+            "get": {
+                "tags": [
+                    "draw"
+                ],
+                "summary": "Получение информации о текущем розыгрыше",
+                "description": "Защищено bearer-токеном",
+                "operationId": "getDraw",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": "3"
+                                                },
+                                                "title": {
+                                                    "type": "string",
+                                                    "example": "Розыгрыш наушников"
+                                                },
+                                                "description": {
+                                                    "type": "string",
+                                                    "example": "Две пары наушников"
+                                                },
+                                                "bonus_price": {
+                                                    "type": "integer",
+                                                    "example": "3000"
+                                                },
+                                                "date_start": {
+                                                    "type": "string",
+                                                    "example": "07/02/2002"
+                                                },
+                                                "date_end": {
+                                                    "type": "string",
+                                                    "example": "07/02/2022"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/draw/index": {
+            "get": {
+                "tags": [
+                    "draw"
+                ],
+                "summary": "Получение списка розыгрышей",
+                "description": "Защищено bearer-токеном",
+                "operationId": "indexDraws",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer",
+                                                        "example": "3"
+                                                    },
+                                                    "title": {
+                                                        "type": "string",
+                                                        "example": "Розыгрыш наушников"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "example": "Две пары наушников"
+                                                    },
+                                                    "bonus_price": {
+                                                        "type": "integer",
+                                                        "example": "3000"
+                                                    },
+                                                    "date_start": {
+                                                        "type": "string",
+                                                        "example": "07/02/2002"
+                                                    },
+                                                    "date_end": {
+                                                        "type": "string",
+                                                        "example": "07/02/2022"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/draw/join": {
+            "post": {
+                "tags": [
+                    "draw"
+                ],
+                "summary": "Зарегистрироваться в розыгрыше",
+                "description": "Защищено bearer-токеном",
+                "operationId": "joinToDraw",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id розыгрыша",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "103"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "type": "boolean"
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "added": {
+                                                            "type": "boolean"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/draw/create": {
+            "post": {
+                "tags": [
+                    "draw"
+                ],
+                "summary": "Создание розыгрыша",
+                "description": "Защищено bearer-токеном",
+                "operationId": "createDraw",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "path",
+                        "description": "Заголовок",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Розыгрыш пива"
+                    },
+                    {
+                        "name": "description",
+                        "in": "path",
+                        "description": "Описание",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Розыгрыш азотного пива"
+                    },
+                    {
+                        "name": "bonus_price",
+                        "in": "path",
+                        "description": "Количество списываемых бонусов для участия",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3000"
+                    },
+                    {
+                        "name": "data_start",
+                        "in": "path",
+                        "description": "Дата начала",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "07/02/2022"
+                    },
+                    {
+                        "name": "data_end",
+                        "in": "path",
+                        "description": "Дата окончания",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "07/02/2022"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "big_image",
+                                    "small_image"
+                                ],
+                                "properties": {
+                                    "big_image": {
+                                        "description": "Большая фотография - png/jpg/jpeg",
+                                        "type": "file"
+                                    },
+                                    "small_image": {
+                                        "description": "Маленькая фотография - png/jpg/jpeg",
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "mall_id": {
+                                                    "type": "integer"
+                                                },
+                                                "title": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "bonus_price": {
+                                                    "type": "integer"
+                                                },
+                                                "big_image_link": {
+                                                    "type": "string"
+                                                },
+                                                "small_image_link": {
+                                                    "type": "string"
+                                                },
+                                                "date_start": {
+                                                    "type": "string"
+                                                },
+                                                "date_end": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/draw/update": {
+            "post": {
+                "tags": [
+                    "draw"
+                ],
+                "summary": "Обновить условия и описание розыгрыша",
+                "description": "Защищено bearer-токеном",
+                "operationId": "updateDraw",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "path",
+                        "description": "Заголовок",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Ежегодный розыгрыш"
+                    },
+                    {
+                        "name": "description",
+                        "in": "path",
+                        "description": "Описание",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Розыгрыш наушников"
+                    },
+                    {
+                        "name": "bonus_price",
+                        "in": "path",
+                        "description": "Количество списываемых бонусов для участия",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3000"
+                    },
+                    {
+                        "name": "data_start",
+                        "in": "path",
+                        "description": "Дата начала",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": ""
+                    },
+                    {
+                        "name": "data_end",
+                        "in": "path",
+                        "description": "Дата окончания",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": ""
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "success": {
+                                                "type": "boolean"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/draw/delete": {
+            "delete": {
+                "tags": [
+                    "draw"
+                ],
+                "summary": "Удалить розыгрыш",
+                "description": "Защищено bearer-токеном",
+                "operationId": "deleteDraw",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id розыгрыша",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "103"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "type": "boolean"
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "deleted": {
+                                                            "type": "boolean"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/draw/members": {
+            "get": {
+                "tags": [
+                    "draw"
+                ],
+                "summary": "Получение информации о количестве участников",
+                "description": "Защищено bearer-токеном",
+                "operationId": "finishDraw",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id розыгрыша",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "103"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "user_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "draw_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "mall_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/order/index": {
+            "get": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Получение информации о купленных купонов пользователя",
+                "description": "Защищено bearer-токеном",
+                "operationId": "orderUserHistory",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "product_id": {
+                                                        "type": "integer",
+                                                        "example": "1"
+                                                    },
+                                                    "product_count": {
+                                                        "type": "integer",
+                                                        "example": "100"
+                                                    },
+                                                    "product_duration": {
+                                                        "type": "string",
+                                                        "format": "date",
+                                                        "example": "122"
+                                                    },
+                                                    "product_coupon": {
+                                                        "type": "integer",
+                                                        "example": "201"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/order/create": {
+            "post": {
+                "tags": [
+                    "order"
+                ],
+                "summary": "Создание заказа",
+                "description": "Защищено bearer-токеном",
+                "operationId": "createOrder",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "id подарка",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "order_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/catalogs/index": {
+            "get": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Получение каталогов категорий продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "indexCatalog",
+                "parameters": [
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "Id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "visible": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "mall_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "october_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/catalogs/create": {
+            "post": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Создание каталога категорий продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "createCatalog",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id записи",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "Id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Название каталога",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Продукты для дома"
+                    },
+                    {
+                        "name": "visible",
+                        "in": "path",
+                        "description": "Видимость категории",
+                        "required": true,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "visible": {
+                                                    "type": "boolean"
+                                                },
+                                                "mall_id": {
+                                                    "type": "integer"
+                                                },
+                                                "october_id": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/catalogs/update": {
+            "post": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Обновление названия и видимости каталога категорий продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "updateCatalog",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Название каталога",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Продукты для дома"
+                    },
+                    {
+                        "name": "visible",
+                        "in": "path",
+                        "description": "Видимость категории",
+                        "required": true,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "updated": {
+                                                    "type": "boolean"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/catalogs/delete": {
+            "delete": {
+                "tags": [
+                    "catalog"
+                ],
+                "summary": "Удаление каталога категорий продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "deleteCatalog",
+                "parameters": [
+                    {
+                        "name": "mall_id",
+                        "in": "path",
+                        "description": "Id ТРЦ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "deleted": {
+                                                    "type": "boolean"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/categories/index": {
+            "get": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Получение категорий продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "indexCategories",
+                "parameters": [
+                    {
+                        "name": "catalog_id",
+                        "in": "path",
+                        "description": "id каталога продуктов",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "catalog_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "sort_categories": {
+                                                        "type": "integer"
+                                                    },
+                                                    "october_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/categories/create": {
+            "post": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Создание категорий продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "createCategory",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Название категории",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Помады"
+                    },
+                    {
+                        "name": "catalog_id",
+                        "in": "path",
+                        "description": "id каталога продуктов",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "october_id",
+                        "in": "path",
+                        "description": "id каталога из october CMS",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "catalog_id": {
+                                                    "type": "integer"
+                                                },
+                                                "sort_categories": {
+                                                    "type": "integer"
+                                                },
+                                                "october_id": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/categories/update": {
+            "post": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Обновление категории продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "updateCategory",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Название категории",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "test"
+                    },
+                    {
+                        "name": "sort_categories",
+                        "in": "path",
+                        "description": "Сортировка категории",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "test"
+                    },
+                    {
+                        "name": "catalog_id",
+                        "in": "path",
+                        "description": "id каталога продуктов",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "october_id",
+                        "in": "path",
+                        "description": "id каталога из october CMS",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "type": "boolean"
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "updated": {
+                                                            "type": "boolean"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/categories/delete": {
+            "delete": {
+                "tags": [
+                    "categories"
+                ],
+                "summary": "Удаление категории продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "deleteCategory",
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "path",
+                        "description": "id категории продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "type": "boolean"
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "deleted": {
+                                                            "type": "boolean"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/products/index": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Получение продуктов по номеру каталога",
+                "description": "Защищено bearer-токеном",
+                "operationId": "indexProducts",
+                "parameters": [
+                    {
+                        "name": "visible_all",
+                        "in": "path",
+                        "description": "Показывать все",
+                        "required": true,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "visible": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer"
+                                                    },
+                                                    "product_image": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "sort_product": {
+                                                        "type": "integer"
+                                                    },
+                                                    "product_count": {
+                                                        "type": "integer"
+                                                    },
+                                                    "october_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "catalog_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/products/{id}": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Получение продукта по id",
+                "description": "Защищено bearer-токеном",
+                "operationId": "indexProduct",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Id продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "visible": {
+                                                    "type": "boolean"
+                                                },
+                                                "price": {
+                                                    "type": "integer"
+                                                },
+                                                "product_image": {
+                                                    "type": "boolean"
+                                                },
+                                                "category_id": {
+                                                    "type": "integer"
+                                                },
+                                                "sort_product": {
+                                                    "type": "integer"
+                                                },
+                                                "product_count": {
+                                                    "type": "integer"
+                                                },
+                                                "october_id": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lk/products/random": {
+            "get": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Получение рандомных продуктов",
+                "description": "Защищено bearer-токеном",
+                "operationId": "randmomProducts",
+                "parameters": [
+                    {
+                        "name": "visible_all",
+                        "in": "path",
+                        "description": "Показывать все",
+                        "required": true,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "visible": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "price": {
+                                                        "type": "integer"
+                                                    },
+                                                    "product_image": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "category_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "sort_product": {
+                                                        "type": "integer"
+                                                    },
+                                                    "product_count": {
+                                                        "type": "integer"
+                                                    },
+                                                    "october_id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "catalog_id": {
+                                                        "type": "integer"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/products/create": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Создание продукта",
+                "description": "Защищено bearer-токеном",
+                "operationId": "createProduct",
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "path",
+                        "description": "Id категории продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3"
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Название продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Соли"
+                    },
+                    {
+                        "name": "description",
+                        "in": "path",
+                        "description": "Описание продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Соли для гололедов"
+                    },
+                    {
+                        "name": "price",
+                        "in": "path",
+                        "description": "Цена продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "300"
+                    },
+                    {
+                        "name": "product_count",
+                        "in": "path",
+                        "description": "Остаток продукта на текущий момент",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "22"
+                    },
+                    {
+                        "name": "product_image",
+                        "in": "path",
+                        "description": "Картинка продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "image"
+                        },
+                        "example": "https://cdp.api/image/po4pmpsdfg54wds"
+                    },
+                    {
+                        "name": "visible",
+                        "in": "path",
+                        "description": "Видимость товара",
+                        "required": true,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean"
+                                        },
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "visible": {
+                                                    "type": "boolean"
+                                                },
+                                                "price": {
+                                                    "type": "integer"
+                                                },
+                                                "product_image": {
+                                                    "type": "boolean"
+                                                },
+                                                "category_id": {
+                                                    "type": "integer"
+                                                },
+                                                "sort_product": {
+                                                    "type": "integer"
+                                                },
+                                                "product_count": {
+                                                    "type": "integer"
+                                                },
+                                                "october_id": {
+                                                    "type": "integer"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/products/update": {
+            "post": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Обновление информации о товаре",
+                "description": "Защищено bearer-токеном",
+                "operationId": "updateProduct",
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "path",
+                        "description": "Id категории продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3"
+                    },
+                    {
+                        "name": "name",
+                        "in": "path",
+                        "description": "Название продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Carmex"
+                    },
+                    {
+                        "name": "description",
+                        "in": "path",
+                        "description": "Описание продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Автомобильный аккумулятор"
+                    },
+                    {
+                        "name": "price",
+                        "in": "path",
+                        "description": "Цена продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "3000"
+                    },
+                    {
+                        "name": "product_count",
+                        "in": "path",
+                        "description": "Остаток продукта на текущий момент",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "34"
+                    },
+                    {
+                        "name": "product_image",
+                        "in": "path",
+                        "description": "Картинка продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "image"
+                        },
+                        "example": "https://cdp.api/image/po4pmpsdfg54wds"
+                    },
+                    {
+                        "name": "visible",
+                        "in": "path",
+                        "description": "Видимость товара",
+                        "required": true,
+                        "schema": {
+                            "type": "bool"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "type": "boolean"
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "updated": {
+                                                            "type": "boolean"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/admin/products/delete": {
+            "delete": {
+                "tags": [
+                    "products"
+                ],
+                "summary": "Удаление продукта",
+                "description": "Защищено bearer-токеном",
+                "operationId": "deleteProduct",
+                "parameters": [
+                    {
+                        "name": "october_id",
+                        "in": "path",
+                        "description": "id категории продукта",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "message": {
+                                                "type": "string"
+                                            },
+                                            "status": {
+                                                "type": "boolean"
+                                            },
+                                            "data": {
+                                                "type": "array",
+                                                "items": {
+                                                    "properties": {
+                                                        "deleted": {
+                                                            "type": "boolean"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "Bearer": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header",
+                "scheme": "Bearer"
+            }
+        }
+    }
+}
